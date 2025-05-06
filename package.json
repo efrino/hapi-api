@@ -11,6 +11,8 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "@hapi/hapi": "^21.4.0"
+    "@hapi/hapi": "^21.4.0",
+    "@supabase/supabase-js": "^2.49.4",
+    "bcrypt": "^5.1.1"
   }
 }
