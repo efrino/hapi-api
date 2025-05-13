@@ -8,9 +8,10 @@ const createServer = async () => {
   });
 
   server.route(allRoutes);
-  await server.initialize();
+  await server.start(); // GANTI dari initialize ke start
   return server;
 };
+
 
 module.exports = async (req, res) => {
   // Langsung render HTML info jika diakses lewat /api atau /api/
