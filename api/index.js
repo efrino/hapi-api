@@ -8,7 +8,15 @@ const createServer = async () => {
   });
 
   server.route(allRoutes);
-  await server.start(); // GANTI dari initialize ke start
+
+  // Jalankan hanya jika bukan di lingkungan serverless (Vercel)
+  if (process.env.NODE_ENV !== 'production' || process.env.VERCEL === undefined) {
+    await server.start();
+    console.log(`Server running at: ${server.info.uri}`);
+  } else {
+    await server.initialize(); // hanya inisialisasi routing, tidak listen
+  }
+
   return server;
 };
 
