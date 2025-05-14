@@ -1,4 +1,5 @@
 const supabase = require('../../lib/supabase');
+const bcrypt = require('bcrypt');
 
 const profileRoutes = [
   {
@@ -9,7 +10,7 @@ const profileRoutes = [
 
       const { data, error } = await supabase
         .from('users')
-        .select('id, email') // hindari menampilkan password!
+        .select('id, name, email') // tampilkan name juga
         .eq('id', id)
         .single();
 
@@ -25,12 +26,12 @@ const profileRoutes = [
     path: '/api/users/{id}',
     handler: async (request, h) => {
       const { id } = request.params;
-      const { email, password } = request.payload;
+      const { name, email, password } = request.payload;
 
       const updateData = {};
+      if (name) updateData.name = name;
       if (email) updateData.email = email;
       if (password) {
-        const bcrypt = require('bcrypt');
         updateData.password = await bcrypt.hash(password, 10);
       }
 
@@ -38,7 +39,7 @@ const profileRoutes = [
         .from('users')
         .update(updateData)
         .eq('id', id)
-        .select('id, email');
+        .select('id, name, email');
 
       if (error) {
         return h.response({ error: error.message }).code(400);

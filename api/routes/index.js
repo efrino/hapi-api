@@ -2,10 +2,10 @@
 
 const authRoutes = require('./auth');
 const profileRoutes = require('./profile');
-// Tambahkan file route lain di sini jika ada
 const childrenRoutes = require('./children');
 const predictionRoutes = require('./prediction');
 const recommendationRoutes = require('./recommendation');
+const trainingModelRoutes = require('./trainingModel');
 
 module.exports = [
   ...authRoutes,
@@ -13,4 +13,5 @@ module.exports = [
   ...childrenRoutes,
   ...predictionRoutes,
   ...recommendationRoutes,
+  ...trainingModelRoutes,
 ];

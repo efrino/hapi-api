@@ -27,7 +27,7 @@ const predictionRoutes = [
                 .from('predictions')
                 .select('*')
                 .eq('child_id', child_id)
-                .order('timestamp', { ascending: false });
+                .order('created_at', { ascending: false });
 
             if (error) return h.response({ error: error.message }).code(400);
 

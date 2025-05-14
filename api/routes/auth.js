@@ -7,12 +7,17 @@ const authRoutes = [
     path: '/api/register',
     handler: async (request, h) => {
       try {
-        const { email, password } = request.payload;
+        const { name, email, password } = request.payload;
+
+        if (!name || !email || !password) {
+          return h.response({ error: 'Name, email, and password are required' }).code(400);
+        }
+
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const { data, error } = await supabase
           .from('users')
-          .insert([{ email, password: hashedPassword }])
+          .insert([{ name, email, password: hashedPassword }])
           .select();
 
         if (error) {
@@ -22,6 +27,7 @@ const authRoutes = [
         return {
           message: 'User registered successfully',
           userId: data[0]?.id,
+          name: data[0]?.name,
           email: data[0]?.email,
         };
       } catch (err) {
@@ -44,7 +50,14 @@ const authRoutes = [
       const match = await bcrypt.compare(password, data.password);
       if (!match) return h.response({ error: 'Invalid credentials' }).code(401);
 
-      return { message: 'Login successful', user: { id: data.id, email: data.email } };
+      return {
+        message: 'Login successful',
+        user: {
+          id: data.id,
+          name: data.name,
+          email: data.email,
+        },
+      };
     },
   },
 ];
