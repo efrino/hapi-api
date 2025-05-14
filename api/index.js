@@ -46,6 +46,12 @@ module.exports = async (req, res) => {
         </head>
         <body>
           <h1>API Endpoint</h1>
+          <p>API ini menyediakan beberapa endpoint untuk mengakses data dan melakukan operasi CRUD.</p>
+          <p>
+            <a href="https://hapi-api-three.vercel.app/" target="_blank" style="color: #007BFF; text-decoration: none;">
+            https://hapi-api-three.vercel.app/
+            </a>
+          </p>
           <p>Daftar endpoint yang tersedia:</p>
           <ul>${routeList}</ul>
           <p>Update otomatis dari semua file di <code>/routes</code>.</p>
